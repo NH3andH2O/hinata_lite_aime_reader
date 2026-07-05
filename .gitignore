@@ -1,0 +1,21 @@
+# VS Code local settings
+.vscode/settings.json
+
+# Python bytecode/cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Tool caches
+.ruff_cache/
+.pytest_cache/
+
+# Build/package output
+build/
+dist/
+*.egg-info/
