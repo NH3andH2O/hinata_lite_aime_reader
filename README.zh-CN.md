@@ -30,6 +30,8 @@ HINATA Lite NFC 读卡器的 Aime 卡读写工具
 使用 uv，在项目根目录同步依赖：
 
 ```bash
+git clone https://github.com/NH3andH2O/hinata_lite_aime_reader.git
+cd hinata_lite_aime_reader
 uv sync
 ```
 

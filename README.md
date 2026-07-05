@@ -30,6 +30,8 @@ An Aime card read/write tool for the HINATA Lite NFC reader.
 Using uv, sync dependencies from the project root:
 
 ```bash
+git clone https://github.com/NH3andH2O/hinata_lite_aime_reader.git
+cd hinata_lite_aime_reader
 uv sync
 ```
 
