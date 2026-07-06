@@ -18,14 +18,14 @@ HINATA Lite NFC 讀卡器的 Aime 卡讀寫工具
 
 ## 環境需求
 
-- Windows 10/11。
+- Windows 10/11 或 Linux。
 - Python 3.10 或更新版本。
 - 建議使用 uv 安裝依賴與執行程式。
 - HINATA Lite NFC 讀卡器，程式會尋找 `VID=0xF822` 的 HID 裝置。
 - 可讀寫的 MIFARE Classic 1K 相容卡。
 - Python 依賴：`hidapi`（提供程式中使用的 `hid` 模組）。
 
-## 環境配置
+## 安装
 
 使用 uv，在專案根目錄同步依賴：
 
@@ -35,7 +35,15 @@ cd hinata_lite_aime_reader
 uv sync
 ```
 
-如果安裝 `hidapi` 失敗，請先安裝系統的 HIDAPI / libusb 相關套件。Linux 若無法存取裝置，需為 `VID=0xF822` 加入 udev 規則或以具備裝置權限的使用者執行。
+如果安裝 `hidapi` 失敗，請先安裝系統的 HIDAPI / libusb 相關套件。
+
+在 Linux 上，讀卡器作為 HID 裝置預設歸 `root` 所有，一般使用者沒有額外權限無法開啟。只需執行一次以下指令（需要 sudo）安裝內建的 udev 規則，之後即可免 `sudo` 使用：
+
+```bash
+uv run hinata-aime --install-udev
+```
+
+此指令會將 `VID=0xF822` 的 udev 規則寫入 `/etc/udev/rules.d/99-hinata.rules`，重新載入規則，並授予 `plugdev` 群組存取權限。請確認目前使用者在 `plugdev` 群組中，然後重新插拔裝置。之後即可無需 `sudo` 執行本工具。
 
 ## 執行方式
 

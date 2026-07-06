@@ -18,14 +18,14 @@ An Aime card read/write tool for the HINATA Lite NFC reader.
 
 ## Requirements
 
-- Windows 10/11.
+- Windows 10/11 or Linux.
 - Python 3.10 or later.
 - uv is recommended for installing dependencies and running the tool.
 - HINATA Lite NFC reader; the program searches for a HID device with `VID=0xF822`.
 - Read/write-capable MIFARE Classic 1K compatible card.
 - Python dependency: `hidapi` (provides the `hid` module used by the program).
 
-## Setup
+## Install
 
 Using uv, sync dependencies from the project root:
 
@@ -35,7 +35,15 @@ cd hinata_lite_aime_reader
 uv sync
 ```
 
-If `hidapi` installation fails, install the system HIDAPI / libusb packages first. On Linux, if the device cannot be accessed, add a udev rule for `VID=0xF822` or run as a user with device permissions.
+If `hidapi` installation fails, install the system HIDAPI / libusb packages first.
+
+On Linux the reader is exposed as a HID device owned by `root`, so a regular user cannot open it without extra permissions. Install the bundled udev rule once (requires sudo) so the reader works without `sudo`:
+
+```bash
+uv run hinata-aime --install-udev
+```
+
+This writes a udev rule for `VID=0xF822` to `/etc/udev/rules.d/99-hinata.rules`, reloads the rules, and grants access to the `plugdev` group. Make sure your user is in the `plugdev` group, then re-plug the device. Afterwards you can run the tool without `sudo`.
 
 ## Usage
 
