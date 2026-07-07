@@ -4,6 +4,7 @@ import argparse
 
 from . import __version__
 from .nfc_reader import run_read_mode, run_write_mode
+from .udev import install_udev_rules
 
 
 def _is_20_digit_value(value: str) -> bool:
@@ -12,7 +13,12 @@ def _is_20_digit_value(value: str) -> bool:
 
 def main(argv: list[str] | None = None) -> int:
 	parser = argparse.ArgumentParser(description="HINATA NFC Aime read/write tool")
-	mode = parser.add_mutually_exclusive_group(required=True)
+	parser.add_argument(
+		"--install-udev",
+		action="store_true",
+		help="Install Linux udev rules so the reader works without sudo, then exit",
+	)
+	mode = parser.add_mutually_exclusive_group(required=False)
 	mode.add_argument(
 		"-r",
 		"--read",
@@ -34,6 +40,13 @@ def main(argv: list[str] | None = None) -> int:
 		help="Loop write mode; only available when no Aime ID is specified",
 	)
 	args = parser.parse_args(argv)
+
+	if args.install_udev:
+		return install_udev_rules()
+
+	if not args.read and args.write is None:
+		parser.error("one of the arguments -r/--read -w/--write is required")
+
 	print(f"HINATA Lite Aime Reader v{__version__}")
 
 	if args.read:

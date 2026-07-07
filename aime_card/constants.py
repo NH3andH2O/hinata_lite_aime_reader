@@ -2,6 +2,7 @@ from __future__ import annotations
 
 # HINATA 設備常數
 HINATA_VID = 0xF822
+HINATA_MANUFACTURER = "NERI"
 USAGE_PAGE_READ = 0x01
 USAGE_PAGE_WRITE = 0x06
 
