@@ -43,7 +43,7 @@ On Linux the reader is exposed as a HID device owned by `root`, so a regular use
 uv run hinata-aime --install-udev
 ```
 
-This writes a udev rule for `VID=0xF822` to `/etc/udev/rules.d/99-hinata.rules`, reloads the rules, and grants access to the `plugdev` group. Make sure your user is in the `plugdev` group, then re-plug the device. Afterwards you can run the tool without `sudo`.
+This writes udev rules for HINATA devices with `VID=0xF822` and manufacturer `NERI` to `/etc/udev/rules.d/99-hinata.rules`, reloads the rules, and grants access to the `plugdev` group and active local seats via `uaccess`. The rules cover both `hidraw` and the USB device node used by some Linux `hidapi` builds. Make sure your user is in the `plugdev` group, then re-plug the device. Afterwards you can run the tool without `sudo`.
 
 ## Usage
 

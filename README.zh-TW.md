@@ -43,7 +43,7 @@ uv sync
 uv run hinata-aime --install-udev
 ```
 
-此指令會將 `VID=0xF822` 的 udev 規則寫入 `/etc/udev/rules.d/99-hinata.rules`，重新載入規則，並授予 `plugdev` 群組存取權限。請確認目前使用者在 `plugdev` 群組中，然後重新插拔裝置。之後即可無需 `sudo` 執行本工具。
+此指令會將 `VID=0xF822` 且 manufacturer 為 `NERI` 的 HINATA udev 規則寫入 `/etc/udev/rules.d/99-hinata.rules`，重新載入規則，並授予 `plugdev` 群組與目前本機登入席位（`uaccess`）存取權限。規則會涵蓋 `hidraw`，以及部分 Linux `hidapi` 建置會開啟的 USB device 節點。請確認目前使用者在 `plugdev` 群組中，然後重新插拔裝置。之後即可無需 `sudo` 執行本工具。
 
 ## 執行方式
 

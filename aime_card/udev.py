@@ -5,16 +5,16 @@ import subprocess
 import sys
 from pathlib import Path
 
-from .constants import HINATA_VID
+from .constants import HINATA_MANUFACTURER, HINATA_VID
 
 UDEV_RULE_PATH = Path("/etc/udev/rules.d/99-hinata.rules")
 
 _VID_HEX = f"{HINATA_VID:04x}"
 
-UDEV_RULE_CONTENT = f"""# HINATA Lite Aime reader (VID=0x{_VID_HEX.upper()})
-# 讓一般使用者可存取 hidraw 及 usb 節點，無須 root。
-SUBSYSTEM=="hidraw", ATTRS{{idVendor}}=="{_VID_HEX}", MODE="0660", GROUP="plugdev", TAG+="uaccess"
-SUBSYSTEM=="usb", ATTRS{{idVendor}}=="{_VID_HEX}", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+UDEV_RULE_CONTENT = f"""# HINATA Lite Aime reader (VID=0x{_VID_HEX.upper()}, manufacturer={HINATA_MANUFACTURER})
+# 授權 HINATA 的 hidraw 節點，以及 libusb backend 會開啟的 USB device 節點。
+SUBSYSTEM=="hidraw", ATTRS{{idVendor}}=="{_VID_HEX}", ATTRS{{manufacturer}}=="{HINATA_MANUFACTURER}", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+SUBSYSTEM=="usb", ENV{{DEVTYPE}}=="usb_device", ATTR{{idVendor}}=="{_VID_HEX}", ATTR{{manufacturer}}=="{HINATA_MANUFACTURER}", MODE="0660", GROUP="plugdev", TAG+="uaccess"
 """
 
 
