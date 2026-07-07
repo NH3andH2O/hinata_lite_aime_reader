@@ -1,6 +1,6 @@
 [project]
 name = "hinata-lite-aime-reader"
-version = "1.0.0"
+version = "1.0.1"
 description = "HINATA Lite NFC 讀卡器的 Aime 卡讀寫工具"
 readme = "README.md"
 requires-python = ">=3.10"
